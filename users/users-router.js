@@ -5,6 +5,7 @@ router.post('/:id/issues', (req, res) => {
     const { id } = req.params;
     req.body.user_id = id;
     req.body.upvotes = 0;
+    req.body.solved = false;
     users.addIssue(req.body)
     .then(created => {
         res.status(201).json(created)

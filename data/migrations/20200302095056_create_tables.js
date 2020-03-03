@@ -21,6 +21,7 @@ exports.up = function(knex) {
     .notNullable()
     tbl.string('location')
     tbl.string('description')
+    tbl.boolean('solved', false)
     tbl.integer('upvotes')
   })
 };
