@@ -1,16 +1,23 @@
 const db = require("../data/dbConfig.js");
 
 module.exports = {
-    add,
-    getById
+    addIssue,
+    getIssuesById,
+    edit
 }
 
-function getById(id) {
+function getIssuesById(id) {
     return db('issues')
     .where({ "user_id": id })
 }
 
-function add(body) {
+function addIssue(body) {
     return db('issues')
     .insert(body)
+}
+
+function edit(body, id) {
+    return db('users')
+    .update(body)
+    .where({ "id": id })
 }
