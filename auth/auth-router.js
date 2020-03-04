@@ -15,8 +15,7 @@ router.post('/register', (req, res) => {
         res.status(201).json(created);
     })
     .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 

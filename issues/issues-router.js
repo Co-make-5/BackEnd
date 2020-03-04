@@ -10,7 +10,7 @@ router.put('/:id', verifyIssue, verifyPost, (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 
@@ -22,7 +22,7 @@ router.delete('/:id', verifyIssue, (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 
@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 

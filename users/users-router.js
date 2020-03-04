@@ -12,7 +12,7 @@ router.post('/:id/issues', verify, verifyPost, (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 
@@ -24,7 +24,7 @@ router.get('/:id/issues', (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 
@@ -36,7 +36,7 @@ router.put('/:id', verify, (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Unable to fulfill request" });
+        res.status(500).json(err);
     })
 })
 
