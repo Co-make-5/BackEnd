@@ -4,9 +4,10 @@ const db = require("../data/dbConfig.js");
 
 router.put('/:id', verifyIssue, verifyPost, (req, res) => {
     const { id } = req.params;
-    issues.update(req.body, id)
+    req.body.id = id;
+    issues.update(req.body)
     .then(updated => {
-        res.status(201).json(updated)
+        res.status(200).json(updated)
     })
     .catch(err => {
         console.log(err);
@@ -18,7 +19,7 @@ router.delete('/:id', verifyIssue, (req, res) => {
     const { id } = req.params;
     issues.remove(id)
     .then(deleted => {
-        res.status(201).json(deleted)
+        res.status(200).json(deleted)
     })
     .catch(err => {
         console.log(err);
@@ -52,7 +53,7 @@ function verifyIssue(req, res, next) {
         if(id[0] === req.userId) {
             next();
         } else {
-            res.status(401).json({ message: "Unauthorized" });
+            res.status(401).json({ message: "User id does not match the id of the user this resource belongs to" });
         }
     });
 }
