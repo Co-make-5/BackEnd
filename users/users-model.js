@@ -3,7 +3,9 @@ const db = require("../data/dbConfig.js");
 module.exports = {
     addIssue,
     getIssuesById,
-    edit
+    edit,
+    getById,
+    get
 }
 
 function getIssuesById(id) {
@@ -20,4 +22,13 @@ function edit(body, id) {
     return db('users')
     .update(body)
     .where({ "id": id })
+}
+
+function getById(id) {
+    return db('users').select('id', 'username', 'name', 'location', 'zip')
+    .where({ id: id })
+}
+
+function get() {
+    return db('users').select('id', 'username', 'name', 'location', 'zip')
 }

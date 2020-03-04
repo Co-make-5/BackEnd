@@ -16,8 +16,8 @@ function get() {
     return db('issues')
 }
 
-function update(body, id) {
+function update(body) {
     return db('issues')
     .update(body)
-    .where({ "id": id })
+    .where({ "id": body.id })
 }
