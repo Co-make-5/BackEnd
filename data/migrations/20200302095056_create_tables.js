@@ -23,7 +23,7 @@ exports.up = function(knex) {
     tbl.string('location')
     tbl.integer('zip')
     tbl.string('description')
-    tbl.boolean('solved', false)
+    tbl.boolean('solved')
     tbl.integer('upvotes')
   })
 };

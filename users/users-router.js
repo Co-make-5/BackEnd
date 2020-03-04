@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const users = require("./users-model.js");
 
-router.post('/:id/issues', (req, res) => {
+router.post('/:id/issues', verify, verifyPost, (req, res) => {
     const { id } = req.params;
     req.body.user_id = id;
     req.body.upvotes = 0;
@@ -28,7 +28,7 @@ router.get('/:id/issues', (req, res) => {
     })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', verify, (req, res) => {
     const { id } = req.params;
     users.edit(req.body, id)
     .then(updated => {
@@ -39,5 +39,22 @@ router.put('/:id', (req, res) => {
         res.status(500).json({ error: "Unable to fulfill request" });
     })
 })
+
+function verifyPost(req, res, next) {
+    if(!req.body.issue_name || !req.body.zip) {
+        res.status(400).json({ message: "Issue name and zip code are required" });
+    } else {
+        next();
+    }
+}
+
+function verify(req, res, next) {
+    const { id } = req.params;
+    if(parseInt(id, 10) === parseInt(req.userId, 10)) {
+        next();
+    } else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+}
 
 module.exports = router;
