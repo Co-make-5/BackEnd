@@ -30,7 +30,8 @@ router.get('/:id/issues', (req, res) => {
 
 router.put('/:id', verify, (req, res) => {
     const { id } = req.params;
-    users.edit(req.body, id)
+    req.body.id = id;
+    users.edit(req.body)
     .then(updated => {
         res.status(200).json(updated)
     })

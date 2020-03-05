@@ -2,7 +2,7 @@ const router = require("express").Router();
 const issues = require("./issues-model.js");
 const db = require("../data/dbConfig.js");
 
-router.put('/:id', verifyIssue, verifyPost, (req, res) => {
+router.put('/:id', verifyIssue, (req, res) => {
     const { id } = req.params;
     req.body.id = id;
     issues.update(req.body)
@@ -38,22 +38,16 @@ router.get('/', (req, res) => {
     })
 })
 
-function verifyPost(req, res, next) {
-    if(!req.body.issue_name || !req.body.zip) {
-        res.status(400).json({ message: "Issue name and zip code are required" });
-    } else {
-        next();
-    }
-}
-
 function verifyIssue(req, res, next) {
     const { id } = req.params;
     db('issues').pluck('user_id').where({ id: id })
     .then(id => {
         if(id[0] === req.userId) {
             next();
+        } else if(req.body.id || req.body.user_id || req.body.issue_name || req.body.location || req.body.zip || req.body.description || req.body.solved){
+            res.status(401).json({ message: "You may only upvote issues that don't belong to you" });
         } else {
-            res.status(401).json({ message: "User id does not match the id of the user this resource belongs to" });
+            next();
         }
     });
 }
