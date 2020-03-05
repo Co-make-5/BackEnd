@@ -18,10 +18,10 @@ function addIssue(body) {
     .insert(body)
 }
 
-function edit(body, id) {
+function edit(body) {
     return db('users')
     .update(body)
-    .where({ "id": id })
+    .where({ "id": body.id })
 }
 
 function getById(id) {
