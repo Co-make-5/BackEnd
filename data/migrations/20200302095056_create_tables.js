@@ -7,7 +7,7 @@ exports.up = function(knex) {
       tbl.string('password');
       tbl.string('name');
       tbl.string('location');
-      tbl.integer('zip');
+      tbl.integer('zip').unsigned();
   })
   .createTable('issues', tbl => {
     tbl.increments();
@@ -21,10 +21,10 @@ exports.up = function(knex) {
     tbl.string('issue_name')
     .notNullable()
     tbl.string('location')
-    tbl.integer('zip')
+    tbl.integer('zip').unsigned()
     tbl.string('description')
     tbl.boolean('solved')
-    tbl.integer('upvotes')
+    tbl.integer('upvotes').unsigned()
   })
 };
 
